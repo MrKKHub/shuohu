@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from "vue";
-//PropType 将构造函数断言成一个类型
+import { defineComponent, PropType, computed } from 'vue'
+// PropType 将构造函数断言成一个类型
 export interface ColumnProps {
   id: number;
   title: string;
@@ -24,25 +24,25 @@ export interface ColumnProps {
 }
 
 export default defineComponent({
-  name: "ColumnList",
+  name: 'ColumnList',
   props: {
     list: {
       type: Array as PropType<ColumnProps[]>,
       required: true
     }
+  },
+  setup (props) {
+    const columnList = computed(() => {
+      return props.list.map(column => {
+        if (!column.avatar) {
+          column.avatar = require('@/assets/emptyAvatar.png')
+        }
+        return column
+      })
+    })
+    return {
+      columnList
+    }
   }
-  // setup (props) {
-  //   const columnList = computed(() => {
-  //     return props.list.map(column => {
-  //       if (!column.avatar) {
-  //         column.avatar = require('@/assets/emptyAvatar.png')
-  //       }
-  //       return column
-  //     })
-  //   })
-  //   return {
-  //     columnList
-  //   }
-  // }
-});
+})
 </script>
