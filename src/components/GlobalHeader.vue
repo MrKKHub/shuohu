@@ -33,11 +33,6 @@ export default defineComponent({
       required: true
     }
   }
-  // setup (props) {
-  //   return {
-  //     user: props.user
-  //   }
-  // }
 })
 
 </script>
