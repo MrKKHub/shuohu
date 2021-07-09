@@ -1,12 +1,9 @@
 <template>
   <div class="container">
     <global-header :user="trueUser"></global-header>
+    <!-- <message :type="success" :message="'操作成功!'"></message> -->
+    <loader v-if="false"></loader>
     <router-view></router-view>
-    <!-- <column-list :list="trueData"></column-list>
-    <validate-form @form-submit="onFormSubmit">
-      <validate-input :rules="trueRules" v-model="emailValue" type="text" placeholder="请输入邮箱地址">{{emailValue}}</validate-input>
-      <validate-input :rules="truePasswordRules" v-model="passwordValue" type="password" placeholder="请输入密码" ref="inputRef"></validate-input>
-    </validate-form> -->
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
         <ul class="list-inline mb-0">
@@ -18,6 +15,11 @@
         </ul>
       </small>
     </footer>
+    <column-list :list="trueData" v-if="false"></column-list>
+    <validate-form @form-submit="onFormSubmit" v-if="false">
+      <validate-input :rules="trueRules" v-model="emailValue" type="text" placeholder="请输入邮箱地址">{{emailValue}}</validate-input>
+      <validate-input :rules="truePasswordRules" v-model="passwordValue" type="password" placeholder="请输入密码" ref="inputRef"></validate-input>
+    </validate-form>
   </div>
 </template>
 
@@ -27,7 +29,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
-import ValidateForm from './components/ValidateForm.vue'
+// import Message from './components/Message.vue'
+// import ValidateForm from './components/ValidateForm.vue'
+import Loader from './components/Loader.vue'
+import createMessage from './components/createMessage'
+import { useStore } from 'vuex'
 const testUser: UserProps = {
   isLogin: true,
   id: 1,
@@ -69,22 +75,26 @@ const passwordRules: RulesProp = [
 export default defineComponent({
   name: 'App',
   components: {
-    GlobalHeader
-    // ColumnList,
-    // ValidateInput,
-    // ValidateForm
+    GlobalHeader,
+    Loader,
+    ColumnList,
+    ValidateInput
+    // Message
   },
   setup () {
-    const emailValue = ref('我是默认值')
+    // createMessage('请求成功啦', 'success')
+    const store = useStore()
+    const emailValue = ref('12@qq.com')
     const passwordValue = ref('123')
     const inputRef = ref<any>()
     const onFormSubmit = (result: boolean) => {
       console.log(inputRef.value.validateInput())
       console.log(result)
     }
+    console.log(testUser)
     return {
       trueData: testData,
-      trueUser: testUser,
+      trueUser: store.state.user,
       // emailRef,
       // validateEmail,
       trueRules: testRules,

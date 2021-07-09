@@ -4,22 +4,25 @@
       {{title}}
     </a>
     <ul class="dropdown-menu" :style="{display: 'block'}" v-if="isOpen">
+      <slot></slot>
+    </ul>
+    <!-- <ul class="dropdown-menu" :style="{display: 'block'}" v-if="isOpen">
       <dropdown-item><a href="#" >发表文章</a></dropdown-item>
       <dropdown-item><a href="#" >编辑资料</a></dropdown-item>
       <dropdown-item disabled><a href="#" >退出登陆</a></dropdown-item>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted, watch } from 'vue'
-import DropdownItem from './DropdownItem.vue'
+// import DropdownItem from './DropdownItem.vue'
 import useClickOutside from '../hooks/useClickOutside'
 export default defineComponent({
   name: 'Dropdown',
-  components: {
-    DropdownItem
-  },
+  // components: {
+  //   DropdownItem
+  // },
   props: {
     title: {
       type: String,
